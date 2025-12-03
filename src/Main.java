@@ -1,51 +1,32 @@
 public class Main {
     public static void main(String[] args) {
-        // 1. Instancia nossa estrutura de dados
-        MinHeap heap = new MinHeap();
+        // 1. Criar e preencher o Grafo baseado na imagem enviada
+        Grafo grafo = new Grafo();
 
-        System.out.println("--- Simulação do Grafo ---");
-        System.out.println("Inserindo vértices com os pesos das arestas do desenho...");
+        // Adicionando as arestas e pesos visualizados na imagem:
+        grafo.adicionarAresta("a", "b", 1);
+        grafo.adicionarAresta("a", "g", 2);
 
-        // Simulando a inserção dos vértices como se o Algoritmo de Prim
-        // estivesse descobrindo as arestas a partir de um ponto inicial.
+        grafo.adicionarAresta("b", "c", 3);
+        grafo.adicionarAresta("b", "g", 11); // Linha vertical
 
+        grafo.adicionarAresta("c", "d", 7);
+        grafo.adicionarAresta("c", "e", 5); // Curva descendo para 'e'
 
-        heap.inserir(new Vertice("ab", 1));
+        grafo.adicionarAresta("d", "f", 10);
+        grafo.adicionarAresta("d", "e", 9); // Curva descendo para 'e'
 
-        heap.inserir(new Vertice("ag", 2));
+        grafo.adicionarAresta("e", "h", 2);
+        grafo.adicionarAresta("e", "g", 12); // Curva longa embaixo
 
+        grafo.adicionarAresta("f", "h", 14);
 
-        heap.inserir(new Vertice("bg", 11));
+        grafo.adicionarAresta("g", "h", 3);
 
+        // 2. Executar o Algoritmo de Prim
+        AlgoritmoPrim prim = new AlgoritmoPrim();
 
-        heap.inserir(new Vertice("bc", 3));
-
-        // Aresta g -> h (peso 3)
-        heap.inserir(new Vertice("ge", 12));
-
-        // Aresta c -> e (peso 5)
-        heap.inserir(new Vertice("gh", 3));
-
-        // Aresta c -> d (peso 7)
-        heap.inserir(new Vertice("ec", 5));
-
-        // Aresta d -> f (peso 10) - Caminho por cima
-        heap.inserir(new Vertice("ed", 9));
-
-        // Aresta g -> e (peso 12) - Caminho mais custoso, só para teste
-        heap.inserir(new Vertice("eh", 2));
-
-        // Aresta h -> f (peso 14) - Caminho por baixo
-        heap.inserir(new Vertice("cd", 7));
-        heap.inserir(new Vertice("df", 10));
-        heap.inserir(new Vertice("fh", 14));
-
-        System.out.println("\n--- Resultado do Extract-MIN ---");
-        System.out.println("O Heap deve devolver sempre o menor peso disponível:");
-
-        while (!heap.isEmpty()) {
-            Vertice removido = heap.extractMin();
-            System.out.println("Vértice: " + removido.getId() + " | Peso: " + removido.getChave());
-        }
+        // Começando do vértice 'a' (pode ser qualquer um)
+        prim.executarPrim(grafo, "a");
     }
 }

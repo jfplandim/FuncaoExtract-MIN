@@ -1,5 +1,6 @@
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 public class MinHeap {
     List<Vertice> heap;
@@ -9,7 +10,7 @@ public class MinHeap {
     }
 
     private int pai(int i){
-        return (i - 2)/2;
+        return (i - 1)/2;
     }
 
     private int esquerda(int i){
@@ -23,7 +24,7 @@ public class MinHeap {
     public Vertice extractMin(){
         //verifica se o vetor esta vazio
         if (this.heap.isEmpty()){
-            throw new RuntimeException("Heap vazio");
+            throw new NoSuchElementException("Não é possível extrair: heap está vazio");
         }
         //armazena o primeiro elemento numa variavel
         Vertice min = this.heap.get(0);
